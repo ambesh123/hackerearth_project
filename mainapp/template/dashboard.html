@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>WINE HOME</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<script>
+	$(document).ready(function(){
+		$("#sort").click(function(event){
+			if(document.getElementById('prc').checked == true){
+				$.get('sortbyprice/' , function(data , status){
+					$(".table").html(data)
+				})
+			}
+			else if(document.getElementById('rat').checked == true){
+				$.get('sortbypoints/' , function(data , status){
+					$(".table").html(data)
+				})
+			}
+			else alert("Please select how to sort !");
+		});
+
+		$(".list").on('click','a',function(event){
+			var name = event.target.getAttribute('name');
+			$.get('getdesc/' , {'name' : name} , function(data,status){
+				$(".desc").html(data)
+			})
+		});
+	});
+	</script>
+	{%load static%}
+	<link rel="stylesheet" type="text/css" href="{%static '/css/main.css'%}">
+</head>
+<body>
+	<div class = "col-sm-12 header">
+		<img src="{% static '/logo.jpg' %}" alt="WINEHEAVEN" height="70px" width="100px" style="margin-top: 10px; border-radius: 20%" class = "col-sm-1"/> 
+		<div class="col-sm-6">
+			<div class="col-sm-8 heading">Wine Mag<div class = "sub-heading">--heaven of wines</div></div>
+			<div class="col-sm-4 sub-heading" style="margin-top: 20px; color: #0000FF">Mr. {{uname}}</div>
+		</div>
+		<div class="col-sm-3 counter">
+			<strong>TOTAL WINES :</strong> {{tot_wines}}  <strong>|</strong>  <strong>API HITS : </strong>2819
+		</div>
+		<div class="col-sm-1">
+			<a href="../logout/" type='button' class="btn btn-danger btn-lg" style="margin: 20px">Logout</a>
+		</div>
+	</div>
+	<div class = "row">
+
+		<div class = "col-sm-8 details">
+
+			<div class="list">
+				<table class="table">
+					{% for i in wine_list %}
+						<tr class="success lisitem"><td><a  name = '{{i.winery}}'>{{i.winery}}</a></td> <td id = 'alrt'>{{i.price}}</td></tr>
+					{%endfor%}
+				</table>
+
+			</div>
+
+
+			<div class = "sortop">
+				<button class="btn btn-info btn-lg" id = "sort">
+		          <span class="glyphicon glyphicon-tasks"></span> SORT BY
+		        </button>
+				<input type = "radio" name = "sortby" id = "prc"> Price
+				<input type = "radio" name = "sortby" id = "rat"> Points
+			</div>
+		</div>
+		<div class = "col-sm-4 desc">
+			<div class="desc_detail">Click on any wine to get it's details</div>
+		</div>
+	</div>
+</body>
+</html>
