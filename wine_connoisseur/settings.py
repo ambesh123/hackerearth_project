@@ -56,7 +56,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            'C:/Users/Ambesh Tiwari/Desktop/WEBD/django/wine_connoisseur/mainapp/template',
+            'mainapp/template',
         ],
         'APP_DIRS': True,
         'OPTIONS': {

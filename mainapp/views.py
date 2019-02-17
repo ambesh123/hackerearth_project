@@ -80,7 +80,8 @@ def import_csv(request):
 	next(io_string)
 
 	for col in csv.reader(io_string ):
-		_ , created = Winemag.objects.update_or_create(
+		try:
+			_ , created = Winemag.objects.update_or_create(
 				country = col[1],
 				description = col[2],
 				designation = col[3],
@@ -92,6 +93,8 @@ def import_csv(request):
 				variety = col[9],
 				winery = col[10]
 			)
+		except:
+			continue
 	return HttpResponse("done")
 
 
