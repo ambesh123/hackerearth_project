@@ -37,7 +37,8 @@
 
 		$(".list").on('click','a',function(event){
 			var name = event.target.getAttribute('name');
-			$.get('../getdesc/' , {'name' : name} , function(data,status){
+			var price = event.target.getAttribute('price');
+			$.get('../getdesc' , {'name' : name , 'price' : price} , function(data,status){
 				$(".desc").html(data)
 			})
 		});
@@ -67,7 +68,7 @@
 			<div class="list">
 				<table class="table">
 					{% for i in wine_list %}
-						<tr class="success lisitem"><td><a  name = '{{i.winery}}'>{{i.winery}}</a></td> <td id = 'alrt'>{{i.price}}</td></tr>
+						<tr class="success lisitem"><td><a  name = '{{i.winery}}' price = '{{i.price}}'>{{i.winery}}</a></td> <td id = 'alrt'>{{i.price}}</td></tr>
 					{%endfor%}
 				</table>
 

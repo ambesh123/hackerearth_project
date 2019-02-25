@@ -107,7 +107,7 @@ def sortbyprice(request):
 	qs = Winemag.objects.order_by('price')
 
 	for i in qs :
-	  res += "<tr class='success lisitem'><td><a name = '"+str(i.winery)+"'>"
+	  res += "<tr class='success lisitem'><td><a name = '"+str(i.winery)+"' price = '"+str(i.price)+"'>"
 	  res += str(i.winery)
 	  res += "</a></td> <td id = 'alrt'>"
 	  res += str(i.price)
@@ -122,7 +122,7 @@ def sortbypoints(request):
 	qs = Winemag.objects.order_by('-points')
 
 	for i in qs :
-	  res += "<tr class='success lisitem'><td><a name = '"+str(i.winery)+"'>"
+	  res += "<tr class='success lisitem'><td><a name = '"+str(i.winery)+"' price = '"+str(i.price)+"'>"
 	  res += str(i.winery)
 	  res += "</a></td> <td id = 'alrt'>"
 	  res += str(i.price)
@@ -134,8 +134,8 @@ def sortbypoints(request):
 
 def getDesc(request):
 	nam = request.GET.get('name')
-
-	qs = Winemag.objects.filter(winery = nam)
+	prc = request.GET.get('price')
+	qs = Winemag.objects.filter(winery = nam).filter(price = prc)
 
 	res = "<h3> Country : "
 	res += str(qs[0].country)
@@ -171,7 +171,7 @@ def search(request):
 	qs = Winemag.objects.filter(winery__contains = srch)
 
 	for i in qs :
-	  res += "<tr class='success lisitem'><td><a name = '"+str(i.winery)+"'>"
+	  res += "<tr class='success lisitem'><td><a name = '"+str(i.winery)+"' price = '"+str(i.price)+"'>"
 	  res += str(i.winery)
 	  res += "</a></td> <td id = 'alrt'>"
 	  res += str(i.price)
