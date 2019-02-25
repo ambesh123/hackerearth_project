@@ -64,6 +64,9 @@ strong{
 .sortop{
 	position: fixed;
 	bottom: 30px;
+	border: 2px solid  black;
+	width: 60%;
+	padding: 4px;
 }
 
 .list{

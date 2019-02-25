@@ -9,8 +9,9 @@ urlpatterns = [
     path('upload_csv/', views.upload_csv),
     path('import_csv/', views.import_csv),
     path('adduser/' , views.addUser),
-    path('home/sortbyprice/', views.sortbyprice),
-    path('home/sortbypoints/', views.sortbypoints),
-    path('home/getdesc/', views.getDesc),
+    path('sortbyprice/', views.sortbyprice),
+    path('sortbypoints/', views.sortbypoints),
+    path('getdesc/', views.getDesc),
+    path('search/', views.search),
     path('logout/' , views.logout)
 ]

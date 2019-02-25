@@ -9,21 +9,35 @@
 	$(document).ready(function(){
 		$("#sort").click(function(event){
 			if(document.getElementById('prc').checked == true){
-				$.get('sortbyprice/' , function(data , status){
+				$.get('../sortbyprice/' , function(data , status){
 					$(".table").html(data)
 				})
 			}
 			else if(document.getElementById('rat').checked == true){
-				$.get('sortbypoints/' , function(data , status){
+				$.get('../sortbypoints/' , function(data , status){
 					$(".table").html(data)
 				})
 			}
 			else alert("Please select how to sort !");
 		});
 
+		$("#search").click(function(event){
+			var str = document.getElementById('srchtxt').value;
+			if(str.length != 0){
+				$.get('../search' , 
+						{
+							search_string : str
+						}
+					,function(data , status){
+					$(".table").html(data)
+				})
+			}
+			else alert("Please enter some text");
+		});
+
 		$(".list").on('click','a',function(event){
 			var name = event.target.getAttribute('name');
-			$.get('getdesc/' , {'name' : name} , function(data,status){
+			$.get('../getdesc/' , {'name' : name} , function(data,status){
 				$(".desc").html(data)
 			})
 		});
@@ -66,6 +80,11 @@
 		        </button>
 				<input type = "radio" name = "sortby" id = "prc"> Price
 				<input type = "radio" name = "sortby" id = "rat"> Points
+				<h1 style="display: inline; margin-left: 60px; margin-right: 70px"> | </h1>
+				<button class="btn btn-info btn-lg" id = "search">
+		          <span class="glyphicon glyphicon-search"></span> SEARCH
+		        </button>
+		        <input type="text" id="srchtxt" style="margin-left: 20px; height: 35px; font-size: 22px;">
 			</div>
 		</div>
 		<div class = "col-sm-4 desc">

@@ -63,13 +63,16 @@ def addUser(request):
 
  	User_auth.objects.create(username = uname , password = pwd , email = eml)
 
- 	return HttpResponse("Your account has been created Successfully")
+ 	return HttpResponse("Your account has been created Successfully. <a href = '../'>Login</a>")
 
 def upload_csv(request):
 	return render(request,"upload_csv.html")
 
 def import_csv(request):
-	csv_file = request.FILES['file']
+	try:
+		csv_file = request.FILES['file']
+	except:
+		return redirect('../upload_csv/')
 
 	if not csv_file.name.endswith('.csv'):
 		messages.error(request,'not a csv file!')
@@ -159,6 +162,22 @@ def getDesc(request):
 
 	res += "<br> Regions : "
 	res += str(qs[0].region_1) +" | "+ str(qs[0].region_2)
+
+	return HttpResponse(res)
+
+def search(request):
+	res = "<table class = 'table'>"
+	srch = str(request.GET.get('search_string'))
+	qs = Winemag.objects.filter(winery__contains = srch)
+
+	for i in qs :
+	  res += "<tr class='success lisitem'><td><a name = '"+str(i.winery)+"'>"
+	  res += str(i.winery)
+	  res += "</a></td> <td id = 'alrt'>"
+	  res += str(i.price)
+	  res += "</td></tr>"
+	  
+	res += "</table>"
 
 	return HttpResponse(res)
 
